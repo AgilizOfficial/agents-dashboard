@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Sidebar from "@/components/Sidebar";
-import { WorkspaceProvider } from "@/lib/workspace-context";
+import { AuthProvider } from "@/lib/auth-context";
 
 export const metadata: Metadata = {
   title: "Agents Hub",
@@ -12,12 +11,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt" className="bg-black text-gray-100">
       <body className="min-h-screen font-mono antialiased">
-        <WorkspaceProvider>
-          <div className="flex">
-            <Sidebar />
-            <main className="md:ml-56 flex-1 min-h-screen pt-14 md:pt-0">{children}</main>
-          </div>
-        </WorkspaceProvider>
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
