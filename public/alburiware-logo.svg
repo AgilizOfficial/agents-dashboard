@@ -1,0 +1,59 @@
+<svg width="1440" height="530" viewBox="0 0 1440 530" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="nodeTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5DCEF4"/>
+      <stop offset="100%" stop-color="#38A8D8"/>
+    </linearGradient>
+    <linearGradient id="nodeMid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4BB8E8"/>
+      <stop offset="100%" stop-color="#2B90C0"/>
+    </linearGradient>
+    <linearGradient id="nodeBot" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8AAAC0"/>
+      <stop offset="100%" stop-color="#5A7A90"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1440" height="530" rx="40" fill="#141820"/>
+  <rect x="2" y="2" width="1436" height="526" rx="38" fill="none" stroke="#5DCEF4" stroke-width="1" stroke-opacity="0.15"/>
+
+  <!-- Lines -->
+  <line x1="258" y1="106" x2="162" y2="402" stroke="#6EC8E8" stroke-width="5.5" stroke-linecap="round" stroke-opacity="0.75"/>
+  <line x1="258" y1="106" x2="358" y2="402" stroke="#6EC8E8" stroke-width="5.5" stroke-linecap="round" stroke-opacity="0.75"/>
+  <line x1="198" y1="288" x2="320" y2="288" stroke="#6EC8E8" stroke-width="4.5" stroke-linecap="round" stroke-opacity="0.65"/>
+
+  <!-- Top node -->
+  <circle cx="258" cy="106" r="20" fill="url(#nodeTop)"/>
+  <circle cx="258" cy="106" r="20" fill="none" stroke="#8EEEFF" stroke-width="2" stroke-opacity="0.6"/>
+
+  <!-- Mid-left node -->
+  <circle cx="198" cy="288" r="16" fill="url(#nodeMid)"/>
+  <circle cx="198" cy="288" r="16" fill="none" stroke="#6DCAE8" stroke-width="1.5" stroke-opacity="0.5"/>
+
+  <!-- Mid-right node -->
+  <circle cx="320" cy="288" r="16" fill="url(#nodeMid)"/>
+  <circle cx="320" cy="288" r="16" fill="none" stroke="#6DCAE8" stroke-width="1.5" stroke-opacity="0.5"/>
+
+  <!-- Bottom-left node -->
+  <circle cx="162" cy="402" r="18" fill="url(#nodeBot)"/>
+  <circle cx="162" cy="402" r="18" fill="none" stroke="#7A9AB0" stroke-width="1.5" stroke-opacity="0.4"/>
+
+  <!-- Bottom-right node -->
+  <circle cx="358" cy="402" r="18" fill="url(#nodeBot)"/>
+  <circle cx="358" cy="402" r="18" fill="none" stroke="#7A9AB0" stroke-width="1.5" stroke-opacity="0.4"/>
+
+  <!-- Divider -->
+  <line x1="430" y1="155" x2="430" y2="410" stroke="#5DCEF4" stroke-width="1" stroke-opacity="0.12"/>
+
+  <!-- Wordmark: single text block, tspan keeps Alburi+ware together -->
+  <text
+    x="466"
+    y="340"
+    font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+    font-size="138"
+    letter-spacing="-3"
+    fill="#FFFFFF"
+  ><tspan font-weight="300">Alburi</tspan><tspan font-weight="700" fill="#3ABDE8">ware</tspan></text>
+
+</svg>
