@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useWorkspace } from "@/lib/workspace-context";
 import { supabase } from "@/lib/supabase";
 
@@ -45,12 +45,23 @@ function TaskCard({
 }) {
   const [showAssign, setShowAssign] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const assignRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (showMenu && menuRef.current && !menuRef.current.contains(e.target as Node)) setShowMenu(false);
+      if (showAssign && assignRef.current && !assignRef.current.contains(e.target as Node)) setShowAssign(false);
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [showMenu, showAssign]);
 
   return (
     <div className="bg-gray-950 border border-gray-800/60 rounded-lg p-3 flex flex-col gap-2">
       <div className="flex items-start justify-between gap-2">
         <h4 className="text-sm font-medium text-white leading-tight">{task.title}</h4>
-        <div className="relative shrink-0">
+        <div ref={menuRef} className="relative shrink-0">
           <button onClick={() => setShowMenu(!showMenu)} className="text-gray-600 hover:text-gray-400 text-xs px-1">...</button>
           {showMenu && (
             <div className="absolute right-0 top-full mt-1 z-10 bg-gray-950 border border-gray-800 rounded-lg py-1 flex flex-col min-w-[120px] shadow-xl">
@@ -77,7 +88,7 @@ function TaskCard({
           </span>
         );
       })()}
-      <div className="flex items-center gap-1.5 mt-1 relative">
+      <div ref={assignRef} className="flex items-center gap-1.5 mt-1 relative">
         <button
           onClick={() => setShowAssign(!showAssign)}
           className="flex items-center gap-1.5 hover:opacity-80 transition-opacity"
@@ -145,7 +156,7 @@ export default function TasksPage() {
       supabase
         .from("members")
         .select("*")
-        .eq("workspace_id", activeWs),
+        .in("workspace_id", activeWs === "ggv" ? ["ggv"] : [activeWs, "ggv"]),
     ]);
     if (tasksRes.data) {
       setTasks(tasksRes.data.map((t: Record<string, unknown>) => ({
