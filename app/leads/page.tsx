@@ -225,16 +225,16 @@ export default function LeadsPage() {
   }
 
   return (
-    <div className="p-6 h-screen flex flex-col">
-      <div className="flex items-center justify-between mb-6">
+    <div className="p-4 md:p-6 min-h-screen md:h-screen flex flex-col">
+      <div className="flex items-center justify-between mb-4 md:mb-6">
         <h2 className="text-lg font-bold text-green-400">Leads</h2>
       </div>
 
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 min-h-0">
+      <div className="flex-1 flex md:grid md:grid-cols-3 lg:grid-cols-5 gap-3 min-h-0 overflow-x-auto md:overflow-x-visible pb-4 md:pb-0 snap-x snap-mandatory md:snap-none">
         {STAGES.map((stage) => (
           <div
             key={stage.id}
-            className={`flex flex-col rounded-xl border-t-2 ${stage.headerBg} border border-gray-800/40 bg-black/50 overflow-hidden`}
+            className={`flex flex-col rounded-xl border-t-2 ${stage.headerBg} border border-gray-800/40 bg-black/50 overflow-hidden min-w-[280px] md:min-w-0 snap-start`}
           >
             <div className="flex items-center justify-between px-3 py-3">
               <div className="flex items-center gap-2">

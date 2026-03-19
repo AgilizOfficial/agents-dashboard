@@ -43,8 +43,8 @@ export default function ProjectsPage() {
   }
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      <h2 className="text-lg font-bold text-green-400 mb-6">Projects</h2>
+    <div className="p-4 md:p-6 max-w-6xl mx-auto">
+      <h2 className="text-lg font-bold text-green-400 mb-4 md:mb-6">Projects</h2>
       {projects.length === 0 ? (
         <div className="rounded-xl border border-green-900/30 bg-black p-8 text-center">
           <p className="text-gray-500 text-sm">Este workspace não tem projetos.</p>

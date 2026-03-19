@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useWorkspace, WORKSPACES } from "@/lib/workspace-context";
 
 const NAV_ITEMS = [
@@ -43,18 +43,27 @@ function NavIcon({ icon }: { icon: string }) {
   }
 }
 
-export default function Sidebar() {
+function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
   const [wsOpen, setWsOpen] = useState(false);
   const { activeWs, setActiveWs } = useWorkspace();
+  const wsRef = useRef<HTMLDivElement>(null);
 
   const currentWs = WORKSPACES.find((w) => w.id === activeWs) ?? WORKSPACES[0];
 
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (wsOpen && wsRef.current && !wsRef.current.contains(e.target as Node)) setWsOpen(false);
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [wsOpen]);
+
   return (
-    <aside className="w-56 h-screen bg-black border-r border-green-900/20 flex flex-col fixed left-0 top-0">
+    <>
       {/* Workspace switcher */}
       <div className="px-3 pt-3 pb-2">
-        <div className="relative">
+        <div ref={wsRef} className="relative">
           <button
             onClick={() => setWsOpen(!wsOpen)}
             className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg hover:bg-gray-900/50 transition-colors"
@@ -92,7 +101,6 @@ export default function Sidebar() {
         </div>
       </div>
 
-      {/* Divider */}
       <div className="border-b border-green-900/20" />
 
       {/* Navigation */}
@@ -103,6 +111,7 @@ export default function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
+              onClick={onNavigate}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                 isActive
                   ? "bg-green-900/30 text-green-400 border-l-2 border-green-400"
@@ -120,6 +129,61 @@ export default function Sidebar() {
       <div className="px-5 py-4 border-t border-green-900/20">
         <p className="text-[10px] text-gray-700">OpenClaw Gateway</p>
       </div>
-    </aside>
+    </>
+  );
+}
+
+export default function Sidebar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  return (
+    <>
+      {/* Mobile top bar */}
+      <div className="md:hidden fixed top-0 left-0 right-0 z-40 bg-black border-b border-green-900/20 flex items-center px-4 h-14">
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="text-gray-400 hover:text-white transition-colors"
+        >
+          {mobileOpen ? (
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          )}
+        </button>
+        <span className="ml-3 text-sm font-medium text-green-400">Agents Hub</span>
+      </div>
+
+      {/* Mobile overlay */}
+      {mobileOpen && (
+        <div
+          className="md:hidden fixed inset-0 z-40 bg-black/60"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+
+      {/* Mobile drawer */}
+      <aside
+        className={`md:hidden fixed left-0 top-14 bottom-0 z-50 w-64 bg-black border-r border-green-900/20 flex flex-col transform transition-transform duration-200 ${
+          mobileOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <SidebarContent onNavigate={() => setMobileOpen(false)} />
+      </aside>
+
+      {/* Desktop sidebar */}
+      <aside className="hidden md:flex w-56 h-screen bg-black border-r border-green-900/20 flex-col fixed left-0 top-0">
+        <SidebarContent />
+      </aside>
+    </>
   );
 }

@@ -209,12 +209,12 @@ export default function TasksPage() {
   }
 
   return (
-    <div className="p-6 h-screen flex flex-col">
-      <div className="flex items-center justify-between mb-6">
+    <div className="p-4 md:p-6 min-h-screen md:h-screen flex flex-col">
+      <div className="flex items-center justify-between mb-4 md:mb-6">
         <h2 className="text-lg font-bold text-green-400">Tasks</h2>
       </div>
 
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4 min-h-0">
+      <div className="flex-1 flex flex-col md:grid md:grid-cols-3 gap-4 min-h-0">
         {COLUMNS.map((col) => (
           <div
             key={col.id}

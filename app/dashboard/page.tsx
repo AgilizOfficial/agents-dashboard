@@ -73,7 +73,7 @@ export default function DashboardPage() {
   const showAgents = activeWs === "ggv" || activeWs === "avgroup";
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col gap-6">
+    <div className="max-w-6xl mx-auto px-4 md:px-6 py-6 md:py-8 flex flex-col gap-4 md:gap-6">
       {/* Global Alert */}
       {isOutOfQuota && (
         <div className="bg-red-600 text-white px-4 py-3 rounded-lg flex items-center justify-between shadow-lg">
@@ -88,11 +88,11 @@ export default function DashboardPage() {
       )}
 
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-2">
         <h2 className="text-lg font-bold text-white tracking-tight">Agents Hub</h2>
         <div className="flex items-center gap-3">
           {lastUpdated && (
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-gray-500 hidden sm:inline">
               Atualizado: {lastUpdated.toLocaleTimeString("pt")}
             </span>
           )}

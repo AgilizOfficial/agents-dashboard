@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -X POST http://localhost:3000/api/openclaw -H \"Content-Type: application/json\" -d '{\"\"method\"\":\"\"usage.cost\"\",\"\"params\"\":{}}')",
+      "Bash(python3 -m json.tool)"
+    ]
+  }
+}
